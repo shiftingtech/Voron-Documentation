@@ -374,7 +374,7 @@ run the command `Z_OFFSET_APPLY_PROBE` followed by `SAVE_CONFIG`.  This will res
 Before the first print, make sure that the extruder extrudes the correct amount of material.
 
 * With the hotend at temperature, make a mark on the filament between the roll of filament and your extruder, between 120mm and 150mm away from the entrance to the extruder.  Measure the distance from the entrance of the extruder to that mark.
-* In Octoprint / Mainsail, extrude 50mm 2 times (for a total of 100mm since Klipper doesn’t allow you to extrude more than 50mm at a time). 
+* In Octoprint / Mainsail, set the extrusion feedrate to 1mm/s, and extrude 50mm 2 times (for a total of 100mm since Klipper doesn’t allow you to extrude more than 50mm at a time). 
 * Measure from the entrance of your extruder to the mark you made previously. 
 	* *In a perfect world, assuming the mark was at 120mm, it would measure 20mm (120mm - 20mm = 100mm), but usually won’t be.*
 * Update `rotation_distance` in the extruder section of the configuration file using this formula:
