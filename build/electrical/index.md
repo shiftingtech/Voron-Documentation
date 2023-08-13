@@ -58,9 +58,9 @@ There is no standard either for the color of wire on stepper motors, nor for the
 ### Identifying Windings
 
 There are 3 basic options for identifying windings:
-1) Check the documentation.  Many motors come with a card which tells you what wire colors are on the same winding.  If there's no card, the manufacturer's website may have something.
-2) Use a multimeter: put your meter in "continuity" mode.  Pick one wire, and then find any other wire that shows continuity with it.  Those two wires are on the same winding. By process of elimination, it should be safe to assume the other two represent the other winding.
-3) If you don't have a meter available, you can twist 2 wires together, and then try to spin the shaft of the motor.  If the wires are on the same winding, it will become noticably harder to spin the shaft.
+1. Check the documentation.  Many motors come with a card which tells you what wire colors are on the same winding.  If there's no card, the manufacturer's website may have something.
+2. Use a multimeter: put your meter in "continuity" mode.  Pick one wire, and then find any other wire that shows continuity with it.  Those two wires are on the same winding. By process of elimination, it should be safe to assume the other two represent the other winding.
+3. If you don't have a meter available, you can twist 2 wires together, and then try to spin the shaft of the motor.  If the wires are on the same winding, it will become noticably harder to spin the shaft.
 
 ### Symptoms of miswired motors
 
