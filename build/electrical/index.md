@@ -55,6 +55,8 @@ Buy some cable holders (e.g. with adhesive) to organize your cables in the elect
 ## Stepper Motor Wiring
 There is no standard either for the color of wire on stepper motors, nor for the order of wires in the connector. As a result, it is often necessary to re-order stepper motor wires _even on motors sold specifically for use in Vorons_.  If you are using the exact BOM motors, the colors shown in the wiring guides should work, however in any other case, you should verify your motor wiring. All control boards currently used with voron expect one winding to be connected on pins 1&2, and the other on pins 3&4.  Note that other details, such as identifying winding A vs winding B is not critical.  At worst, your motor will run backwards, which you can easily fix later, in software.
 
+Note: there is one exception to the rule above:  Stealthburner toolhead pcbs *prior* to rev 4 place one winding on pins1&3, and the other on 2&4
+
 ### Identifying Windings
 
 There are 3 basic options for identifying windings:
