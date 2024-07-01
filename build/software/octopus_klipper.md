@@ -12,6 +12,8 @@ nav_exclude: true
 >
 >There have been reports of Octopus boards coming preloaded with a firmware that turns on all heaters and fans as soon as you power up the board.  As a result, we >recommend leaving the heaters disconnected until after loading the klipper firmware
 
+{: .note }
+This guide is for first time installation of klipper on an mcu.  For updating, check [below](#firmware-update)
 
 The firmware update process for both Octopus and Octopus Pro is the same so the guides have been combined.
 
@@ -111,5 +113,14 @@ There are multiple options for getting this firmware file installed onto your Oc
 
    (note: this test is not applicable if the firmware was compiled for UART, rather than USB)
    
+### Firmware Update
+
+If klipper is already on the Octopus, and you just wish to update it with a newer firmware image, klipper can help you do this, just using the USB connection.
+
+1. Build the firmware as normal, following the steps [above](#build-firmware-image)
+2. Determine your serial ID, either by copying it from printer.cfg, or by running the command `ls /dev/serial/by-id/*`
+3. Still in your klipper directory (you should be there from step 1), run the command `make flash FLASH_DEVICE=/dev/serial/by-id/your-serial-id-here`, replacing your-serial-id-here with the actual ID from step 2.
+4. If the board flashes successfully, you're done.  restart klipper, and carry on
+5. If the board does NOT flash successfully, check `lsusb`  for a DFU device.  If find one, run `make flash FLASH_DEVICE=0483:df11`
 
 ### Back to [Software Installation](./index.md#klipper-octoprint-configuration)

@@ -6,6 +6,9 @@ nav_exclude: true
 
 # SKR mini E3 V2.0 Klipper Firmware
 
+{: .note }
+This guide is for first time installation of klipper on an mcu.  For updating, check [below](#firmware-update)
+
 ### Required Items
 
 * Klipper must be installed onto the Raspberry Pi
@@ -66,3 +69,18 @@ Turn on the power supply to power on the Mini E3 board.  If named properly, the 
 **Important:** If the Mini E3 is not powered with 12-24V, Klipper will be unable to communicate with the TMC drivers via UART and the Mini E3 will automatically shut down.
 
 ### Back to [Software Installation](./index.md#klipper-octoprint-configuration)
+
+{: .note }
+It is an expected part of updating klipper, that you will occasionally need to flash updated firmware onto your MCU as well.  Leaving an sdcard permanently in the mini SKR is not required for normal operation, but will simplify the firmware update process.
+
+### Firmware Update
+
+If you do not have an sdcard already in your SKR mini, there are unfortunately no short cuts.  To update the board, you must repeat the entire [Build Firmware Image](#build-firmware-image) and [Load Firmware Image](#load-firmware-image) processes above.
+
+If there is an sdcard already in your skr mini, it can be reflashed without physical access.
+
+1. Build the updated firmware image.  See [Build Firmware Image](#build-firmware-image ) above
+2. stop klipper: `sudo systemctl stop klipper`
+3. Determine the Serial id of your SKR, either by looking at printer.cfg, or via `ls /dev/serial/by-id`
+4. execute the command `~/klipper/scripts/flash-sdcard.sh /dev/serial/your-serial-id-here btt-skr-mini-e3-v2` , replacing "your-serial-id-here" with the actual ID from the previous step
+5. restart klipper: `sudo systemctl start klipper`

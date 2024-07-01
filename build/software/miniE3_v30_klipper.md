@@ -6,6 +6,9 @@ nav_exclude: true
 
 # SKR mini E3 V3.0 Klipper Firmware
 
+{: .note }
+This guide is for first time installation of klipper on an mcu.  For updating, check [below](#firmware-update)
+
 ### Required Items
 
 * Klipper must be installed onto the Raspberry Pi
@@ -64,5 +67,9 @@ Replace the microSD card into the Mini E3.
 Turn on the power supply to power on the Mini E3 board.  If named properly, the SKR will automatically update with the Klipper firmware.
 
 **Important:** If the Mini E3 is not powered with 12-24V, Klipper will be unable to communicate with the TMC drivers via UART and the Mini E3 will automatically shut down.
+
+### Firmware Update
+
+TBD
 
 ### Back to [Software Installation](./index.md#klipper-octoprint-configuration)
