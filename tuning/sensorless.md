@@ -42,7 +42,7 @@ In this path, you will need to download some macros dependong on your printer. I
 1. Create a new file in the location of your choosing named `homing.cfg`
 2. Open another browser tab and open [this](https://github.com/EricZimmerman/Voron24/blob/PreKlippain/macros/helpers/homing.cfg) page if you have a 2.4, or [this](https://github.com/EricZimmerman/Voron02/blob/PreKlippain/macros/helpers/homing.cfg) page if you have a v0.
 3. Edit `homing.cfg` 
-4. **Add** the macro from step 7 to `homing.cfg`. **_Be sure to edit the coordinates as needed for your bed in the Z section (the line that reads **G1 X175 Y175 F15000**). IE to the center of the bed, your endstop pin for z, etc._**
+4. **Add** the macro from step 2 to `homing.cfg`. **_Be sure to edit the coordinates as needed for your bed in the Z section (the line that reads **G1 X175 Y175 F15000**). IE to the center of the bed, your endstop pin for z, etc._**
 5. Save `homing.cfg` 
 6. Edit your `printer.cfg` file
 7. If you have a `[safe_z_home]` section, find it and comment it out as we will be using homing override as found in `homing.cfg`.
