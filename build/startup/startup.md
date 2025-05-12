@@ -206,7 +206,7 @@ Run this command for each of the motors:
 <details markdown="1">
   <summary>Troubleshooting</summary>
   
-* If the stepper does not move at all verify the following the "enable_pin" and "step_pin" in your printer.cfg.
+* If the stepper does not move at all verify the following: the "enable_pin" and "step_pin" in your printer.cfg.
 
 * If the stepper motor moves but does not return to its original position then verify the "dir_pin" setting.
 
@@ -252,7 +252,7 @@ Once there is a _tested_ process for stopping the printer in case of something g
 * If the bed moves upwards before moving to the right, you must reverse your z stepper directions in the config.
 * If the toolhead moves in an incorrect direction, stop it with emergency stop, take note of what direction it went, and move on to testing Y
 
-Next, test Y: run `G28 Y`.  The toolhead should move up slightly, and then towards the back of the printer until it hits the Y endstop.  
+Next, test Y: run `G28 Y`.  The bed should move down slightly, and then the toolhead should move towards the back of the printer until it hits the Y endstop.  
 
 {: .note}
 In a CoreXY configuration, both motors motors work together to move the printer in X or Y (think Etch A Sketch). As a result, testing X homing alone tells us very little.  We *must* test X and Y in order to determine what (if any) adjustments are needed
@@ -365,14 +365,14 @@ If anything is updated in the printer configuration file, save the file and rest
 <div class="defaulthide" id="v1motor" markdown="1">
 ## Stepper Motor Check
 
-To verify that each stepper motor is operating correctly, send an appropriate `STEPPER_BUZZ` command, such as:
+To verify that each stepper motor is operating correctly, send a `STEPPER_BUZZ` command, such as:
 
 `STEPPER_BUZZ STEPPER=stepper_x`
 
 The STEPPER_BUZZ command will cause the given stepper to move one millimeter in a positive direction and then it will return to its starting position.  This movement cycle will repeat 10 times.
 
 You will be looking for three things:
-  1. Ensure that the motore which responds is the one you expected.
+  1. Ensure that the motor which responds is the one you expected.
   1. Ensure that the motor moves cleanly:  forward, pause, back, pause, repeat.  Lack of movement, or vibrating or buzzing oddly are all cause for concern
   1. Ensure that the motor moves the correct direction first.  If the movement is backwards, it is important to correct at this stage.
 
@@ -397,9 +397,6 @@ Run this command for each of the motors:
 <details markdown="1">
   <summary>Troubleshooting</summary>
   
-* If the stepper does not move at all
-  * Verify the `enable_pin` and `step_pin` in your printer.cfg.
-  * Verify that the motor driver has power
 * If the stepper does not move at all
   * Verify the `enable_pin` and `step_pin` in your printer.cfg.
   * Verify that the motor driver has power
@@ -504,43 +501,55 @@ Once the readings are stable, run `Z_TILT_ADJUST`.  Make a note of how long the 
 <div class="defaulthide" id="v2motor" markdown="1">
 ## Stepper Motor Check
 
-To verify that each stepper motor is operating correctly, send the following command in the terminal:
+To verify that each stepper motor is operating correctly, send a command such as :
 
 `STEPPER_BUZZ STEPPER=stepper_x`
 
-Run this command for each of the motors:
+The STEPPER_BUZZ command will cause the given stepper to move one millimeter in a positive direction and then it will return to its starting position.  This movement cycle will repeat 10 times.
 
-* stepper_x
-* stepper_y
-* stepper_z
-* stepper_z1
-* stepper_z2
-* stepper_z3
-* extruder
+You will be looking for three things:
+  1. Ensure that the motor which responds is the one you expected.
+  1. Ensure that the motor moves cleanly:  forward, pause, back, pause, repeat.  Lack of movement, or vibrating or buzzing oddly are all cause for concern
+  1. Ensure that the motor moves the correct direction first.  If the movement is backwards, it is important to correct at this stage.
 
+{: .note }
+A single test of each motor is being used to confirm multiple aspects of its function:  that the motor moves properly, that it's the correct motor, and what direction it moves.  Please make sure you confirm ALL stated expectations for each motor.  You can repeat the test multiple times if needed.
 
-The STEPPER_BUZZ command will cause the given stepper to move one millimeter in a positive direction and then it will return to its starting position. (If the endstop is defined at position_endstop=0 then at the start of each movement the stepper will move away from the endstop.) It will perform this movement ten times.
 
 <img src="images/verifysteppers.gif" alt="RAW button GIF" width="70%">
 
-If the motor moves back and forth, it's working, and you can move on to the next step.
+Run this command for each of the motors:
+
+| **Command**                                   | **Expectation**                                                |
+|:-------------------------------------------|:----------------------------------------------------------------|
+| STEPPER_BUZZ STEPPER=stepper_x           | The back left gantry motor will rotate clockwise first, then back counterclockwise   |
+| STEPPER_BUZZ STEPPER=stepper_y           | The back right gantry motor will rotate clockwise first, then back counterclockwise  |
+| STEPPER_BUZZ STEPPER=stepper_z           | the front left corner of the bed moves up, then back down                |
+| STEPPER_BUZZ STEPPER=stepper_z1          | the back left corner of the bed moves up, then back down                            |
+| STEPPER_BUZZ STEPPER=stepper_z2          | The back right corner of the bed moves up, then back down                           |
+| STEPPER_BUZZ STEPPER=stepper_z3          | The front right corner of the bed moves up, then back down                           |
+| STEPPER_BUZZ STEPPER=extruder            | The extruder moves.  Direction will be tested later for this motor                   |
 
 
 <details markdown="1">
   <summary>Troubleshooting</summary>
   
-* If the stepper does not move at all verify the following the "enable_pin" and "step_pin" in your printer.cfg.
+* If the stepper does not move at all
+  * Verify the `enable_pin` and `step_pin` in your printer.cfg.
+  * Verify that the motor driver has power
 
-* If the stepper motor moves but does not return to its original position then verify the "dir_pin" setting.
+* If the stepper motor moves but does not return to its original position then verify the `dir_pin` setting.
 
-* If the stepper motor oscillates in an incorrect direction, then it generally indicates that the "dir_pin" for the axis needs to be inverted. To do this, add a '!' in front of the "dir_pin". Example: "dir_pin: !PIN"
+* If the wrong motor moves, verify that the correct motors are plugged into the correct ports of the controller
 
-* If the motor moves significantly more or significantly less than one millimeter then verify the `rotation_distance` setting.
+* If the stepper motor movement is backwards, then it generally indicates that the "dir_pin" for the axis needs to be inverted. Add a '!' in front of the "dir_pin", or remove it if already present. Example: `dir_pin: PA1` -> `dir_pin: !PA1`
 
-* If the motor buzzes, check the stepper motor wiring.
+* If the load moves significantly more or significantly less than one millimeter then verify the `rotation_distance` setting.
 
-</details>
-<p></p>
+* If the motor buzzes without making clean 1mm movements, check the [stepper motor wiring](/build/electrical/#stepper-motor-wiring)
+
+</details><p></p>
+
 ![](./images/V2-motor-configuration-guide.png)
 
 <br>
@@ -605,6 +614,180 @@ Once the readings are stable, run `QUAD_GANTRY_LEVEL`.  Make a note of how long 
 
 
 <!-- V2 END -->
+
+<!-- VSW START -->
+<!-- VWS Motors -->
+<div class="defaulthide" id="vswmotor" markdown="1">
+## Stepper Motor Check
+
+To verify that each stepper motor is operating correctly, send a `STEPPER_BUZZ` command, such as:
+
+`STEPPER_BUZZ STEPPER=stepper_x`
+
+The STEPPER_BUZZ command will cause the given stepper to move one millimeter in a positive direction and then it will return to its starting position.  This movement cycle will repeat 10 times.
+
+You will be looking for three things:
+  1. Ensure that the motor which responds is the one you expected.
+  1. Ensure that the motor moves cleanly:  forward, pause, back, pause, repeat.  Lack of movement, or vibrating or buzzing oddly are all cause for concern
+  1. Ensure that the motor moves the correct direction first.  If the movement is backwards, it is important to correct at this stage.
+
+{: .note }
+A single test of each motor is being used to confirm multiple aspects of its function:  that the motor moves properly, that it's the correct motor, and what direction it moves.  Please make sure you confirm ALL stated expectations for each motor.  You can repeat the test multiple times if needed.
+
+
+<img src="images/verifysteppers.gif" alt="RAW button GIF" width="70%">
+
+Run this command for each of the motors:
+
+| **Command**                                   | **Expectation**                                                |
+|:-------------------------------------------|:----------------------------------------------------------------|
+| STEPPER_BUZZ STEPPER=stepper_x           | The left hand gantry motor will rotate counterclockwise first, then back clockwise   |
+| STEPPER_BUZZ STEPPER=stepper_y           | The bed will move forward first, then return backward
+| STEPPER_BUZZ STEPPER=stepper_z           | The right hand gantry motor will rotate counterclockwise first, then back clockwise                |
+| STEPPER_BUZZ STEPPER=extruder            | The extruder moves.  Direction will be tested later for this motor                   |
+
+
+<details markdown="1">
+  <summary>Troubleshooting</summary>
+  
+* If the stepper does not move at all
+  * Verify the `enable_pin` and `step_pin` in your printer.cfg.
+  * Verify that the motor driver has power
+
+* If the stepper motor moves but does not return to its original position then verify the `dir_pin` setting.
+
+* If the wrong motor moves, verify that the correct motors are plugged into the correct ports of the controller
+
+* If the stepper motor movement is backwards, then it generally indicates that the "dir_pin" for the axis needs to be inverted. Add a '!' in front of the "dir_pin", or remove it if already present. Example: `dir_pin: PA1` -> `dir_pin: !PA1`
+
+* If the load moves significantly more or significantly less than one millimeter then verify the `rotation_distance` setting.
+
+* If the motor buzzes without making clean 1mm movements, check the [stepper motor wiring](/build/electrical/#stepper-motor-wiring)
+
+</details>
+
+![](./images/SW-motor-configuration-guide.png)
+
+<br>
+
+
+</div>
+
+<!-- VSW Endstops -->
+<div  class="defaulthide"  id="vswendstop"  markdown="1">
+
+## Endstop Check
+
+{: .note }
+this document describes testing x and y endstops.  if you will be using sensorless homing, test any physical endstops you do have, and refer to the [sensorless homing guide](/tuning/sensorless.html).
+
+Slowly move the toolhead and bed to the center, then send the `QUERY_ENDSTOPS` command. The terminal window should respond with the following:
+
+
+```
+Send: QUERY_ENDSTOPS
+
+Recv: x:open y:open z:open
+```
+
+If either "X" or "Y" shows "triggered", double-check to make sure none of them are pressed. 
+
+Next, move the toolhead all the way to the right until you hear a clicking sound, then send the `QUERY_ENDSTOPS` command again. <br>
+
+Make sure that the X endstop says "triggered" and the Y and Z endstops stay open.
+
+Next, return the toolhead to the middle, and move the bed all the way forward.   This should result in the Y endstop reading "triggered" 
+
+{: .note }
+The Voron Switchwire, uses a "probe virtual endstop" for Z, so the Z endstop will be dealt with in a later step
+
+
+<details  markdown="1">
+
+<summary>Troubleshooting</summary>
+
+* <p markdown="1">If one of the endstops acts backwards (reading "TRIGGERED" when open and vice-versa), go into the printer configuration file (typically printer.cfg) and add or remove the ! in front of the pin identifier. 
+For example, if the X endstop was inverted, add a ! in front of the pin number as follows: 
+<br>`endstop_pin: P1.28` -> `endstop_pin: !P1.28` 
+<br>Be warned however:  All stock Voron endstops are N.C. switches connected to GND.  If a stock endstop requires `!` it may indicate a wiring issue</p>
+
+* <p>If the endstop cannot be reached with the toolhead, make sure that you don't have any rubber rail stoppers left on the rail. </p>
+
+* <p>If there are no rubber rail stoppers in place and you still can't trigger the endstop, make sure that your gantry is deracked. <a  href="https://www.youtube.com/watch?v=cOn6u9kXvy0">Gantry deracking</a>  </p>
+
+* if a switch seems "slow" to respond, you may need to add a software controlled pullup to its pin, using `^`.  Most controllers in Vorons have hardwired pullups, and do not require this, but there are always exceptions.
+
+</details>
+
+<br />
+
+
+</div>
+
+<!-- V0 Homing -->
+<div class="defaulthide" id="vswhoming" markdown="1">
+
+## XY Homing Check
+
+At this point everything is ready to home X and Y.
+
+{: .warning} 
+>You need to be able to quickly stop the printer in case something goes wrong (e.g. the tool head goes the wrong direction).  There are a few ways of doing this:
+>
+> 1. Use the E-stop button on the display (if installed).  On the Mini12864 it is the small button underneath the main control knob.  Test the button and see what happens -  Klipper should shut down. The Raspberry Pi and OctoPrint/Mainsail/Fluidd should still be running but disconnected from Klipper.  
+> 2. Have a computer right next to the printer with the `RESTART` or `M112` command already in the terminal command line.  When you start homing the printer, if it goes in the wrong direction, quickly send the restart command and it will stop the printer.
+> 3. As a "nuclear" option, power off the printer with the power switch if something goes wrong.  This is not ideal because it may corrupt the files on the SD card and to recover would require reinstalling everything from scratch.
+
+<div class="defaulthide mainsailclass" markdown="1">
+{: .note }
+After a shutdown, press the `FIRMWARE_RESTART` button in Mainsail or Fluidd to resume normal operation
+</div>
+<div class="defaulthide octoprintclass" markdown="1">
+{: .note }
+After a shutdown, press "Connect" in the upper left corner of OctoPrint. Next, in the Octoprint terminal window send a `FIRMWARE_RESTART` to get the printer back up and running.
+</div>
+
+Once there is a _tested_ process for stopping the printer in case of something going wrong,  you can test X and Y movement.   
+First, test Y: run `G28 Y`.  The toolhead should move up slightly, and then the bed should move forward until it triggers the Y endstop.  If the bed moves the wrong direction, you probably need to invert its dir_pin.
+
+{: .note}
+In a CoreXZ configuration, two motors motors work together to move the printer in X and Z (think Etch A Sketch). As a result, you need to look at something that was supposed to be an X move, AND something that was supposed to be a Z move to fully identify problems.
+
+Next, send a `G28 X` command. This will only home X: The toolhead should  move up slightly and then move to the right until it hits the X endstop. 
+
+Finally, send a `G28 Z` command.  Note that this will actually force homing all axes.  So:
+  1. The toolhead will lift slightly
+  1. The toolhead will home to the right
+  1. The bed will home to the front
+  1. The toolhead  and bed (X and Y axes) will return to center
+  1. The toolhead will move down, and home to the bed, using the probe
+
+* If the toolhead moves differently than expected, use the chart below to correct it.
+* If the bed moves unexpectedly, this probably means the Y motor is swapped with one of the X/Z motors.
+
+
+
+
+If the x or z axis does not move the toolhead in the expected or correct direction, refer to the table below to figure out how to correct it.  If you need to invert the direction of one of the motors, invert the direction pin definition by adding a `!` to the pin name. For example, `dir_pin: PB2` would become `dir_pin: !PB2`.  (if the entry already has a `!`, remove it instead).   If the motors are going in directions that match the lower row of the chart, physically swap your X and Y (A and B) motor connectors at the MCU.
+
+## Motor Configuration Guide for the Voron Switchwire
+
+
+![](./images/SW-motor-configuration-guide.png)
+
+<br>
+
+</div>
+
+<div class="defaulthide" id="vwsbedlocating"  markdown="1">
+</div>
+
+
+
+
+
+<!-- VSW END -->
+
 <!--  GENERAL STUFF GOES HERE -->
 
 <!-- Endstop Pin -->
@@ -707,8 +890,31 @@ standard deviation 0.011948
 </div>
 <br>
 
+<!-- Probe Calibration -->
+<div class="defaulthide" id="probecalibrate" markdown="1">
+## Probe Calibration
 
+Although we've already tested the probe, the probe has not yet been calibrated, this means that it is just blindly treating the position where the probe activates as z=0, which almost certainly not correct.  
 
+{: .note }
+Note:  Users of Beacon, Cartographer, or the Btt Eddy Probe should follow the calibration instructions from their respective manufacturers, and skip this process.
+
+1. Home the printer: `G28`
+1. Move the toolhead to the center of the bed.  For a 300mm printer, that command might be: `G0 X150 Y150 F6000`.  Adjust as necessary for your build
+1. run the command `probe_calibrate`
+1. if you are using a dockable probe, such as klicky, you will now need to remove the probe from the toolhead by hand.
+1. Conduct "the paper test":  
+    1. Place a piece of typical printer paper on the bed.
+    1. Using either the testz command as shown in the console, or the "Manual Probe" popup in mainsail/fluidd, move the toolhead down until you start to feel resistance from the nozzle against the piece of paper.
+    1. execute the command `accept`, or press the "accept" button
+    1. execute the command `save_config`.  Klipper will then restart, saving the new calibration.
+
+{: .note }
+When moving in small increments during the paper test, klipper will use a back & forth motion, which is intended to negate back lash issues during the test. Don't worry!  we promise, after the back and forth is complete, the end delta is the distance you requested.  It just went the long way to get there.
+
+![](./images/mainsail_manual_probe.png.png )
+
+</div>
 
 <!-- 00 Point General-->
 <div class="defaulthide" id="point00" markdown="1">
@@ -782,7 +988,7 @@ On a V2, the bed should now be adjusted so there is a small (2-3mm) gap between 
 ## Endstop Check
 
 {: .note }
-this document describes testing all 3 endstops.  if you will be using sensorless homing on x and/or y, test any endstops you do have, and then refer to the separate sensorless homing guide.
+this document describes testing all 3 endstops.  if you will be using sensorless homing on x and/or y, test any physical endstops you do have, and refer to the [sensorless homing guide](/tuning/sensorless.html).
 
 Slowly move the toolhead to the center, then send the `QUERY_ENDSTOPS` command. The terminal window should respond with the following:
 

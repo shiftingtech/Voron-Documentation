@@ -9,14 +9,14 @@
       const v0pages = new Array("0", "info", "verifytemp", "verifyheater", "v0motor", "xyendstop", "v0homing", "v000", "v0endstop", "pid", "v0bedscrews", "initial", "finish");
       const v1pages = new Array("0", "info", "verifytemp", "verifyheater", "v1motor", "xyendstop", "v1homing",  "bedlocating" ,"point00", "zendstop",  "probecheck", "pid", "ztilt", "initial", "finish" );
       const v2pages = new Array("0", "info", "verifytemp", "verifyheater", "v2motor", "xyendstop", "v2homing", "bedlocating", "point00", "zendstop", "probecheck", "pid", "qgl", "initial", "finish" );
-      const vswpages = new Array("0", "info", "verifytemp", "verifyheater", "vswmotor", "5");
+      const vswpages = new Array("0", "info", "verifytemp", "verifyheater", "vswmotor", "vswendstop", "probecheck", "vswhoming", "probecalibrate", "point00", "pid", "initial", "finish");
    
 
       //Page names per Model
       const v0pagename = new Array("Start", "Information", "Verify Temperatures", "Verify Heaters", "Motor Checks", "XY Endstop Check", "Homing Check", "0 Point", "Z-Endstop", "PID Tuning", "Bed Leveling", "Initial Setup", "Finish Line" );
       const v2pagename = new Array("Start", "Information", "Verify Temperatures", "Verify Heaters", "Motor Checks", "XY Endstop Check", "Homing Check", "Bed Locating", "0 Point", "Z Endstop", "Probe Check", "PID Tuning", "Quad Gantry Level", "Initial Setup", "Finish Line" );
       const v1pagename = new Array("Start", "Information", "Verify Temperatures", "Verify Heaters", "Motor Checks", "XY Endstop Check", "Homing Check", "Bed Locating", "0 Point", "Z Endstop", "Probe Check", "PID Tuning", "Z-Tilt", "Initial Setup", "Finish Line" );
-      const vswpagename = new Array("Start", "Information", "Verify Temperatures", "Verify Heaters", "Motor Checks", "XY Endstop Check", "Homing Check", "Z-Endstop", "PID Tuning", "Bed Screw", "Initial Setup", "Finish Line" );
+      const vswpagename = new Array("Start", "Information", "Verify Temperatures", "Verify Heaters", "Motor Checks", "XY Endstop Check", "Probe Check", "Homing Check", "Probe Calibration", "0 Point"  , "PID Tuning", "Initial Setup", "Finish Line" );
  
 
 
@@ -231,22 +231,22 @@ function sidebar () {
 
   if (modelparam == "v0") 
   $.each(v0pages, function(key, page){
-      $( ".nav-list" ).append("<li>"+"<a href="+"?model=v0&step="+step+""+">"+v0pagename[step]+"</a>"+"</li>");
+      $( ".nav-list" ).append("<li>"+"<a href="+"?model=v0&step="+step+"&interface="+interfaceparam+"&probe="+probeparam+">"+v0pagename[step]+"</a>"+"</li>");
       step++ 
   }) 
   else if (modelparam == "v2")
   $.each(v2pages, function(key, page){
-    $( ".nav-list" ).append("<li>"+"<a href="+"?model=v2&step="+step+""+">"+v2pagename[step]+"</a>"+"</li>");
+    $( ".nav-list" ).append("<li>"+"<a href="+"?model=v2&step="+step+"&interface="+interfaceparam+"&probe="+probeparam+">"+v2pagename[step]+"</a>"+"</li>");
     step++
   }) 
   else if (modelparam == "v1") 
   $.each(v1pages, function(key, page){
-    $( ".nav-list" ).append("<li>"+"<a href="+"?model=v1&step="+step+""+">"+v1pagename[step]+"</a>"+"</li>");
+    $( ".nav-list" ).append("<li>"+"<a href="+"?model=v1&step="+step+"&interface="+interfaceparam+"&probe="+probeparam+">"+v1pagename[step]+"</a>"+"</li>");
     step++
   }) 
   else if (modelparam == "vsw") 
   $.each(vswpages, function(key, page){
-    $( ".nav-list" ).append("<li>"+"<a href="+"?model=vsw&step="+step+""+">"+vswpagename[step]+"</a>"+"</li>");
+    $( ".nav-list" ).append("<li>"+"<a href="+"?model=vsw&step="+step+"&interface="+interfaceparam+"&probe="+probeparam+">"+vswpagename[step]+"</a>"+"</li>");
     step++
   })
 
