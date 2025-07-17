@@ -188,7 +188,7 @@ Add the following entries to your printer.cfg:
 
 > ### Community References
 >
-> [Calculating Driver Current Settings](../../community/howto/120decibell/calculating_driver_current.md)
+> [Calculating Driver Current Settings](../../community/howto/shiftingtech/calculating_driver_current.md)
 >
 
 ### Restart to take effect

@@ -11,7 +11,7 @@ Community-generated documentation for the many items that the official guide may
 
 | Guide Name / Link | Author | Last Updated* |
 |---|---|---|
-| [Calculating Driver Current Settings](./120decibell/calculating_driver_current.md) | 120decibell | Dec 27, 2021 |
+| 
 | [Chamber Temperature Exhaust Fan](./alchemyEngine/chamber_temperature_exhaust_fan.md) | alchemyEngine | Feb 23, 2021 |
 | [IGUS Chain Ordering Guide](./amonkeybutler/igus_chain_ordering_guide.md) | AMonkeyButler |  Feb 23, 2021 |
 | [Installing a Bed Heater with RTV](./fulg/installing_heater_with_rtv.md) | Fulg | Aug 17, 2021 |
@@ -32,6 +32,7 @@ Community-generated documentation for the many items that the official guide may
 | [Backing up printer configuration files to GitHub](./EricZimmerman/BackupConfigToGithub.md) | EricZimmerman & maz0r | May 8, 2023 | 
 | [Wiring Sequins to LDO Picobilical Tool Head X Endstop](./FlopSplash/Wiring_Sequins_to_LDO_Picobilical_Tool_Head_X_Endstop.md) | FlopSplash |
 | [Remote Access to Your Voron](./jade/RemoteAccessToYourVoron.md) | Jade | Apr 27, 2023
+[Calculating Driver Current Settings](./shiftingtech/calculating_driver_current.md) | 120decibell, shiftingtech | July 16, 2025 |
 
 
 *Last Update excludes typos and grammatical corrections.
